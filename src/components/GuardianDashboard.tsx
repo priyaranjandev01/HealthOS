@@ -1,4 +1,4 @@
-import { X, Shield, Clock, Check } from 'lucide-react';
+import { X, Shield, Clock, Check, CalendarCheck } from 'lucide-react';
 import { useHydrationLog } from '../hooks/useHydrationLog';
 import { useGuardianNotifications } from '../hooks/useGuardianNotifications';
 import { useState } from 'react';
@@ -61,10 +61,23 @@ export default function GuardianDashboard({ isOpen, onClose }: GuardianDashboard
               <p className="text-xs text-text-muted">Hydration & Activity Tracker</p>
             </div>
           </div>
-        </div>
-        <div className="px-5 py-4 space-y-3 max-h-[60vh] overflow-y-auto">
-          <div>
-            <div className="space-y-2">
+        </div>          <div className="px-5 py-4 space-y-4 max-h-[60vh] overflow-y-auto">
+            {/* Cron Job Status Notice */}
+            <div className="p-3 rounded-lg bg-accent-teal/10 border border-accent-teal/20">
+              <div className="flex items-start gap-2.5">
+                <CalendarCheck className="w-4 h-4 text-accent-teal mt-0.5 flex-shrink-0" />
+                <div className="text-xs text-text-secondary">
+                  <span className="font-medium text-accent-teal">Reliable notifications enabled!</span>
+                  <p className="mt-1 text-text-muted">
+                    Open this app <strong>once daily</strong> to restore your schedule. The cron job will send notifications even when the browser is closed.
+                  </p>
+                </div>
+              </div>
+            </div>
+            
+            <div>
+              <h3 className="text-xs font-medium text-text-muted uppercase tracking-wide mb-2">Today's Schedule</h3>
+              <div className="space-y-2">
               {HYDRATION_ITEMS.map((item) => {
                 const logged = isItemLogged(item.id);
                 return (

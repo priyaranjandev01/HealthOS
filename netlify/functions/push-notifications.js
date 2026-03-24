@@ -222,8 +222,8 @@ export async function handler(event, context) {
     }
   }
 
-  // POST /api/check-scheduled - For cron job to check and send due notifications
-  if (apiPath === '/api/check-scheduled' && method === 'POST') {
+  // POST or GET /api/check-scheduled - For cron job to check and send due notifications
+  if (apiPath === '/api/check-scheduled' && (method === 'POST' || method === 'GET')) {
     try {
       const now = new Date();
       const currentHour = now.getHours();
