@@ -7,6 +7,37 @@ const STATIC_ASSETS = [
   '/icon-512.svg',
 ];
 
+// ==================== PUSH NOTIFICATION HANDLING ====================
+// Handle push events from the server (true background notifications)
+self.addEventListener('push', (event) => {
+  if (!event.data) return;
+  
+  try {
+    const data = event.data.json();
+    
+    const options = {
+      body: data.body,
+      icon: data.icon || '/icon-192.svg',
+      tag: data.tag || 'guardian-notification',
+      requireInteraction: data.requireInteraction || false,
+      vibrate: [200, 100, 200],
+      data: {
+        url: '/',
+        notificationKey: data.tag?.replace('guardian-', ''),
+      },
+      actions: [
+        { action: 'logged', title: '✅ I Drank It' },
+      ],
+    };
+    
+    event.waitUntil(
+      self.registration.showNotification(data.title || 'HealthOS', options)
+    );
+  } catch (error) {
+    console.error('Push event error:', error);
+  }
+});
+
 // Guardian Notification Messages with Action Buttons and Sticky behavior
 const GUARDIAN_NOTIFICATIONS = {
   // Morning
