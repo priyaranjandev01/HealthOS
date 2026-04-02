@@ -55,3 +55,32 @@ export interface HydrationLog {
   timestamp: number;
   amount: number; // in ml
 }
+
+// Gym Tracker Types
+export interface GymExercise {
+  id: string;
+  name: string;
+  sets: number;
+  completed: boolean;
+}
+
+export interface GymDay {
+  dayNumber: number;
+  dayName: string;
+  focus: string;
+  warmup: string;
+  exercises: GymExercise[];
+  isRestDay: boolean;
+  completed: boolean;
+  cardio?: { name: string; duration: string; completed: boolean }[];
+}
+
+export interface GymLog {
+  id: string;
+  date: string; // YYYY-MM-DD
+  dayNumber: number;
+  completedExercises: string[]; // exercise IDs
+  duration: number; // in minutes
+  notes: string;
+  timestamp: number;
+}
